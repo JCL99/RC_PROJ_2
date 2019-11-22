@@ -10,7 +10,7 @@
 #define LOCALHOST "127.0.0.1" /* Using this for ease of debugging*/
 #define MAXSIZE 1000
 #define TRUE 1999
-#define MYPORT 6969
+#define MYPORT 1234
 
 int socket_in_fd, socket_out_fd;
 struct sockaddr_in receiverAddress;
@@ -71,7 +71,7 @@ void createSocket(int port){
 	senderAddress.sin_port = htons(MYPORT);
 	senderAddress.sin_addr.s_addr = htonl(INADDR_ANY);
 
-  if (bind(socket_in_fd, (const struct sockaddr *)&senderAddress, sizeof(senderAddress)) < 0){
+  if (bind(socket_in_fd, (const struct sockaddr *)&receiverAddress, sizeof(receiverAddress)) < 0){
     fprintf(stderr, "createSocket(): bind() failed! *** socket_in_fd ***\n");
 		exit(EXIT_FAILURE);
   }
