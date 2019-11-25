@@ -2,5 +2,5 @@
 
 ## Work developed by:
 - Hugo Martins
-- João SW
+- João Lopes
 - Pedro Monteiro
