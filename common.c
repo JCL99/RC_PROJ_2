@@ -1,21 +1,21 @@
-void createSocket(int port){
+void setupSockets(int port, struct sockaddr_in *senderAddress, struct sockaddr_in *receiverAddress, int *socket_in_fd, int *socket_out_fd){
   struct hostent *host;
 
-  if((socket_in_fd = socket(AF_INET, SOCK_DGRAM, 0)) < 0){
-		fprintf(stderr, "createSocket(): socket() failed! *** socket_out_fd ***\n");
+  if((*socket_in_fd = socket(AF_INET, SOCK_DGRAM, 0)) < 0){
+		fprintf(stderr, "setupSockets(): socket() failed! *** socket_out_fd ***\n");
 		exit(EXIT_FAILURE);
   }
-  if((socket_out_fd = socket(AF_INET, SOCK_DGRAM, 0)) < 0){
-		fprintf(stderr, "createSocket(): socket() failed! *** socket_out_fd ***\n");
+  if((*socket_out_fd = socket(AF_INET, SOCK_DGRAM, 0)) < 0){
+		fprintf(stderr, "setupSockets(): socket() failed! *** socket_out_fd ***\n");
 		exit(EXIT_FAILURE);
   }
 
-  memset(&senderAddress, 0, sizeof(senderAddress));
-  memset(&receiverAddress, 0, sizeof(receiverAddress));
+  memset(senderAddress, 0, sizeof(*senderAddress));
+  memset(receiverAddress, 0, sizeof(*receiverAddress));
 
   host = gethostbyname(receiverName);
 	if(host == NULL) {
-    fprintf(stderr, "[!] createSocket(): gethostbyname() failed\n");
+    fprintf(stderr, "[!] setupSockets(): gethostbyname() failed\n");
 	}
 
   receiverAddress.sin_family = AF_INET;
@@ -27,7 +27,7 @@ void createSocket(int port){
 	senderAddress.sin_addr.s_addr = htonl(INADDR_ANY);
 
   if (bind(socket_in_fd, (const struct sockaddr *)&senderAddress, sizeof(senderAddress)) < 0){
-    fprintf(stderr, "createSocket(): bind() failed! *** socket_in_fd ***\n");
+    fprintf(stderr, "setupSockets(): bind() failed! *** socket_in_fd ***\n");
 		exit(EXIT_FAILURE);
   }
 }
