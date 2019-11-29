@@ -53,7 +53,7 @@ int main(int argc, char **argv, char **envp)
     int sizefile;
     /*struct save send;*/
     int verify;
-    int n_try, sendRead;
+    int n_try, sendRead=0;
 
     if (argc != 5)
     {
@@ -140,6 +140,7 @@ int main(int argc, char **argv, char **envp)
                 n_try++;
                 if (n_try < 3)
                 {
+		    sendPacket(&packetBuffer, sizeof(packetBuffer.seq_num) + sendRead);
                     continue;
                 }
                 else
