@@ -73,12 +73,12 @@ fi
 
 echo "Running project."
 
-./file-receiver received-file.txt 1234 1 &
+./file-receiver received-file.txt 1235 1 &
 RECEIVER_PID=$!
 sleep .1
 
 echo "Test" > sent-file.txt
-./file-sender sent-file.txt localhost 1234 1
+./file-sender sent-file.txt localhost 1235 1
 
 wait $RECEIVER_PID || true
 

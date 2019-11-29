@@ -28,7 +28,7 @@ typedef struct __attribute__((__packed__)) ack_pkt_t
 int port, windowsize;
 
 int main(int argc, char const *argv[])
-{
+{int enable = 1;
     int readLength, raw_socket, writeLength = 1000;
     uint32_t mask = 0;
     uint32_t base = 1;
@@ -50,6 +50,9 @@ int main(int argc, char const *argv[])
         fprintf(stderr, "main(): socket error!");
         exit(-1);
     }
+	if (setsockopt(raw_socket, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0)
+    		fprintf(stderr, "setsockopt(SO_REUSEADDR) failed\n");
+
 
     memset(&servaddr, 0, sizeof(servaddr));
     servaddr.sin_family = AF_INET;

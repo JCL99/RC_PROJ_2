@@ -176,7 +176,7 @@ int main(int argc, char **argv, char **envp)
 }
 
 void setupSockets(int port)
-{
+{int enable = 1;
 
     struct timeval timeout;
     timeout.tv_sec = 1;
@@ -189,6 +189,10 @@ void setupSockets(int port)
     }
 
     setsockopt(socket_sender, SOL_SOCKET, SO_RCVTIMEO, (struct timeval *)&timeout, sizeof(struct timeval));
+	
+	if (setsockopt(socket_sender, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0)
+    		fprintf(stderr, "setsockopt(SO_REUSEADDR) failed\n");
+
     memset(&senderAddress, 0, sizeof(senderAddress));
     memset(&receiverAddress, 0, sizeof(receiverAddress));
 
