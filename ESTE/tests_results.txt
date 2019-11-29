@@ -1,0 +1,25 @@
+Checking submission file: project2.zip
+Checking file name...		OK
+Checking file type...		OK
+Checking submission contents.
+Archive:  project2.zip
+  inflating: Makefile                
+  inflating: file-sender.c           
+  inflating: file-receiver.c         
+Checking for Makefile...	OK
+Building project.
+gcc -Wall -Werror -O3 -o file-receiver file-receiver.c
+gcc -Wall -Werror -O3 -o file-sender file-sender.c
+Checking for file-sender...	OK
+Checking for file-receiver...	OK
+Running project.
+tamanho ficheiro=5
+n_chunks=1
+seq no 1
+after send 2
+ verify 8 read length 9
+Received: 1
+5
+finishedChecking received file...	OK
+All basic checks passed.
+Cleaning up.
