@@ -90,8 +90,8 @@ int main(int argc, char **argv, char **envp)
     sizefile = ftell(file);
     rewind(file);
     int n_chunks = (sizefile / MAXSIZE) + 1;
-    printf("tamanho ficheiro=%d\n", sizefile);
-    printf("n_chunks=%d\n", n_chunks);
+//    printf("tamanho ficheiro=%d\n", sizefile);
+//    printf("n_chunks=%d\n", n_chunks);
     /*send.all_chunks = (char **)malloc(n_chunks * sizeof(char *));
     send.size = (int *)malloc(n_chunks * sizeof(int));
     for (int i = 0; i < n_chunks; i = i + 1)
@@ -128,7 +128,7 @@ int main(int argc, char **argv, char **envp)
             }
             sendPacket(&packetBuffer, sizeof(packetBuffer.seq_num) + sendRead);
             seq++;
-            printf("after send %d\n", seq);
+  //          printf("after send %d\n", seq);
         }
 
         n_try = 0;
@@ -213,6 +213,6 @@ int receivePacket(struct ack_pkt_t *ack)
     int verify;
     socklen_t sendsize = sizeof(senderAddress);
     verify = recvfrom(socket_sender, (void *)ack, sizeof(ack), 0, (struct sockaddr *)&senderAddress, &sendsize);
-    printf(" verify %d", verify);
+   // printf(" verify %d", verify);
     return verify;
 }

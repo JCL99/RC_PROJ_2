@@ -84,9 +84,9 @@ int main(int argc, char const *argv[])
             close(raw_socket);
             exit(-1);
         }
-        fprintf(stdout, " read length %d\n", readLength );
+//        fprintf(stdout, " read length %d\n", readLength );
         data.seq_num = htonl(data.seq_num);
-        fprintf(stdout, "Received: %d\n", data.seq_num);
+  //      fprintf(stdout, "Received: %d\n", data.seq_num);
         if (data.seq_num > base + windowsize)
         {
             /*drop packet*/
@@ -105,7 +105,7 @@ int main(int argc, char const *argv[])
             {
                 base = base + 1;
                 mask = mask >> 1;
-                printf("window scroll %d", base);
+    //            printf("window scroll %d", base);
             }
             base = base + 1;
             mask = mask >> 1;
@@ -134,7 +134,7 @@ int main(int argc, char const *argv[])
         fprintf(stdout, "%d\n", writeLength);
         if (writeLength < 1000)
             { /*last packet was reached*/
-                fprintf(stdout, "finished");
+      //          fprintf(stdout, "finished");
                 fclose(fp);
                 close(raw_socket);
                 break;
