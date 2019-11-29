@@ -60,7 +60,7 @@ int main(int argc, char const *argv[])
         if (writeLength == sizeof(data.data))
         {
             
-            if ((n = recvfrom(raw_socket, (data_pkt_t *)data, MAXSIZE, MSG_WAITALL, (struct sockaddr *)&servaddr, &len)) < 1) {
+            if ((n = recvfrom(raw_socket, &data, MAXSIZE, MSG_WAITALL, (struct sockaddr *)&servaddr, &len)) < 1) {
                 fprintf(stderr, "main(): recvfrom error!");
                 fclose(fp);
                 close(raw_socket);
