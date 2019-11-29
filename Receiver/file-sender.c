@@ -5,15 +5,30 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <sys/socket.h>
-#include "packet-format.h"
 #include <sys/time.h>
 /* #include "common.h"*/ /* I'll implement this later... */
+#include <stdint.h>
 
+#define TIMEOUT 1000 // ms
+#define MAX_RETRIES 3
 #define MAXSIZE 1000
 #define MYPORT 6969
 #define WINDOW_MAX 32
 #define FALSE 0
 #define TRUE 1
+
+typedef struct __attribute__((__packed__)) data_pkt_t
+{
+    uint32_t seq_num;
+    char data[1000];
+} data_pkt_t;
+
+typedef struct __attribute__((__packed__)) ack_pkt_t
+{
+    uint32_t seq_num;
+    uint32_t selective_acks;
+} ack_pkt_t;
+
 struct save
 {
     int *size;
@@ -109,6 +124,7 @@ int main(int argc, char **argv, char **envp)
                 fclose(file);
                 close(socket_sender);
                 fprintf(stderr, "main(): fread");
+                exit(-1);
             }
             sendPacket(&packetBuffer, sizeof(packetBuffer.seq_num) + sendRead);
             seq++;
